@@ -1,3 +1,5 @@
+**🚧🚧Note: This repository is currently under construction.🚧🚧**
+
 # Train Station Interaction Game
 
 A simple Pygame-based interaction game where you play as a character with a talking dog, navigating through a train station and interacting with various NPCs to board a train.
