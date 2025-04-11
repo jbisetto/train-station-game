@@ -7,3 +7,6 @@
 [submodule "external/npc-ai"]
 	path = external/npc-ai
 	url = https://github.com/jbisetto/npc-ai
+[submodule "external/npc_ai"]
+	path = external/npc_ai
+	url = https://github.com/jbisetto/npc-ai
