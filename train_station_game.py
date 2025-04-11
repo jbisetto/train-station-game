@@ -451,20 +451,20 @@ def main():
     
     # Create game objects - adjust positions based on map size
     player = Player(MAP_WIDTH // 2, MAP_HEIGHT // 2, "assets/player.png")  # Start player in center
-    dog = NPC(MAP_WIDTH // 2 + 50, MAP_HEIGHT // 2, "assets/dog.png", "Dog", dog_dialogue)  # Dog follows player
+    hachiko = NPC(MAP_WIDTH // 2 + 50, MAP_HEIGHT // 2, "assets/dog.png", "Hachiko", dog_dialogue)  # Dog follows player
     
     # Position NPCs according to the marked locations
-    info_attendant = NPC(MAP_WIDTH // 4, MAP_HEIGHT // 4, "assets/info_attendant.png", "Information", info_dialogue)
-    ticket_attendant = NPC(2 * MAP_WIDTH // 3, MAP_HEIGHT // 3, "assets/ticket_attendant.png", "Ticket", ticket_dialogue)
+    information_booth_attendant = NPC(MAP_WIDTH // 4, MAP_HEIGHT // 4, "assets/info_attendant.png", "Information", info_dialogue)
+    ticket_booth_attendant = NPC(2 * MAP_WIDTH // 3, MAP_HEIGHT // 3, "assets/ticket_attendant.png", "Ticket", ticket_dialogue)
     
     # Position conductors - move 1 and 2 up towards track starts
-    conductor1 = NPC((MAP_WIDTH // 4) - 100, (2 * MAP_HEIGHT // 3) - 100, "assets/conductor1.png", "Conductor 1", conductor1_dialogue)  # Moved up
-    conductor2 = NPC(3 * MAP_WIDTH // 4, (2 * MAP_HEIGHT // 3) - 100, "assets/conductor2.png", "Conductor 2", conductor2_dialogue)  # Moved up
-    conductor3 = NPC((MAP_WIDTH // 2) - 100, (3 * MAP_HEIGHT // 4) - 20, "assets/conductor3.png", "Conductor 3", conductor3_dialogue)  # Keep in middle
+    station_attendant_kyoto = NPC((MAP_WIDTH // 4) - 100, (2 * MAP_HEIGHT // 3) - 100, "assets/conductor1.png", "Conductor 1", conductor1_dialogue)  # Moved up
+    station_attendant_odawara = NPC(3 * MAP_WIDTH // 4, (2 * MAP_HEIGHT // 3) - 100, "assets/conductor2.png", "Conductor 2", conductor2_dialogue)  # Moved up
+    station_attendant_osaka = NPC((MAP_WIDTH // 2) - 100, (3 * MAP_HEIGHT // 4) - 20, "assets/conductor3.png", "Conductor 3", conductor3_dialogue)  # Keep in middle
     
     # Group NPCs
-    npcs = [info_attendant, ticket_attendant, conductor1, conductor2, conductor3, dog]
-    obstacles = [info_attendant, ticket_attendant, conductor1, conductor2, conductor3]  # Dog is not an obstacle
+    npcs = [information_booth_attendant, ticket_booth_attendant, station_attendant_kyoto, station_attendant_odawara, station_attendant_osaka, hachiko]
+    obstacles = [information_booth_attendant, ticket_booth_attendant, station_attendant_kyoto, station_attendant_odawara, station_attendant_osaka]  # Dog is not an obstacle
     
     # Setup dialogue system
     dialogue_system = DialogueSystem()
@@ -488,7 +488,7 @@ def main():
                     for npc in npcs:
                         if player.can_interact_with(npc, player.progression_state):
                             # Different keys for different NPCs
-                            if npc.name == "Dog" and event.key == pygame.K_d:
+                            if npc.name == "Hachiko" and event.key == pygame.K_d:
                                 dialogue_system.activate(npc)
                                 game_state = STATE_DIALOGUE
                                 break
@@ -535,7 +535,7 @@ def main():
             player.move(dx, dy, obstacles)
             
             # Dog follows player at a distance
-            dog.follow(player.x + 50, player.y - 20, obstacles)  # Position dog to the right and slightly ahead
+            hachiko.follow(player.x + 50, player.y - 20, obstacles)  # Position dog to the right and slightly ahead
         
         # Update camera position
         camera_x, camera_y = update_camera(player.x, player.y)
@@ -555,7 +555,7 @@ def main():
         if game_state == STATE_EXPLORING:
             for npc in npcs:
                 if player.can_interact_with(npc, player.progression_state):
-                    if npc.name == "Dog":
+                    if npc.name == "Hachiko":
                         key_text = "D"
                     elif npc.name == "Conductor 1":
                         key_text = "E"
