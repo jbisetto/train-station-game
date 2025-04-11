@@ -1,0 +1,9 @@
+[submodule "external/asr"]
+	path = external/asr
+	url = https://github.com/jbisetto/english-japanese-transcriber
+[submodule "external/tts"]
+	path = external/tts
+	url = https://github.com/jbisetto/english-japanese-tts
+[submodule "external/npc-ai"]
+	path = external/npc-ai
+	url = https://github.com/jbisetto/npc-ai
