@@ -1,16 +1,16 @@
 # Train Station Game
 
-A simple Pygame-based interaction game where you play as a character with a talking dog, navigating through a train station and interacting with various NPCs to board a train. This game features AI-powered dialogues with Japanese language support.
+A simple Pygame-based interaction game where you play as a character navigating through a train station with Hachiko, your talking dog companion who serves as your Japanese language instructor and guide. You'll interact with various NPCs to board a train while practicing Japanese conversation. This game features AI-powered dialogues with Japanese language support.
 
 This project was developed as the final immersion project for the [GenAI Cloud Project Bootcamp](https://genai.cloudprojectbootcamp.com/). I want to thank bootcamp organizer and instructor Andrew Brown at ExamPro for putting together the bootcamp.
 
 ## Game Overview
 
 In this game, you'll need to:
-1. Talk to the information booth attendant
-2. Purchase a ticket from the ticket booth
-3. Get your ticket checked by one of three station platform attendants
-4. You can also chat with your talking dog companion at any time!
+1. Talk to the Information attendant at the information booth
+2. Purchase a ticket from Sato at the ticket booth
+3. Get your ticket checked by one of three platform attendants: Tanaka, Nakamura, or Yamada
+4. Chat with Hachiko, your Japanese-speaking dog companion, who will provide guidance and language practice along the way!
 
 ## Installation & Setup
 
@@ -21,8 +21,24 @@ In this game, you'll need to:
 - Pyperclip (for clipboard functionality)
 
 ### Installing Dependencies
+
+We recommend using a virtual environment to avoid conflicts with other Python projects:
+
 ```bash
-pip install pygame pyaudio pyperclip
+# Create a virtual environment
+python -m venv .venv
+
+# Activate the virtual environment
+# On Windows:
+.venv\Scripts\activate
+# On macOS/Linux:
+source .venv/bin/activate
+
+# Install dependencies from requirements.txt
+pip install -r requirements.txt
+
+# Additionally, ensure you have pyperclip for clipboard functionality
+pip install pyperclip
 ```
 
 ## Required AI Services
@@ -91,8 +107,8 @@ For more detailed information about the game, please refer to:
 - Multilingual support with Japanese text and audio
 - Voice input and speech recognition
 - Text selection and clipboard integration
-- Dog companion that follows you around
-- Progressive gameplay with multiple NPCs
+- Hachiko, your loyal dog companion who serves as both a Japanese language instructor and guide
+- Progressive gameplay with multiple NPCs in a simulated Japanese train station environment
 
 ## Troubleshooting
 
@@ -108,3 +124,22 @@ If you encounter issues:
 This project is provided as-is with no warranty. Feel free to modify and use for educational purposes.
 
 Enjoy your train adventure!
+
+## NPCs and Characters
+
+### Hachiko (Your Dog Companion)
+- Named after the famous loyal Japanese Akita dog
+- Acts as your personal Japanese language instructor
+- Follows you around the station providing guidance
+- Can translate phrases and explain Japanese customs
+- Interact with Hachiko by pressing the **J key** when nearby
+
+### Station Staff
+- **Suzuki (Information Booth Attendant)**: Provides details about trains and station layout
+- **Sato (Ticket Booth Attendant)**: Sells tickets and explains fare options
+- **Platform Attendants**:
+  - **Tanaka**: Station Platform Attendant 1 (E key)
+  - **Nakamura**: Station Platform Attendant 2 (R key)
+  - **Yamada**: Station Platform Attendant 3 (T key)
+
+Each NPC speaks both English and Japanese, allowing you to practice your language skills in different contexts.

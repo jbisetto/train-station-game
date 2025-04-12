@@ -109,6 +109,9 @@ class AIServiceClient:
         self.recording_thread = None
         self.audio_data = None
         
+        # Audio playback state
+        self.is_playing_audio = False
+        
         # NPC voice mapping
         self.npc_voices = {
             "Hachiko": "male1",
@@ -505,6 +508,9 @@ class AIServiceClient:
                 sound = pygame.mixer.Sound(temp_file)
                 debug_log(f"Audio loaded, length: {sound.get_length():.2f} seconds")
                 
+                # Set the playback flag
+                self.is_playing_audio = True
+                
                 # Play the audio
                 channel = sound.play()
                 if channel:
@@ -518,9 +524,14 @@ class AIServiceClient:
                     
                     playback_successful = True
                     debug_log("Pygame audio playback completed")
+                
+                # Reset the playback flag
+                self.is_playing_audio = False
+                
             except Exception as e:
                 debug_log(f"Pygame mixer playback failed: {e}")
                 traceback.print_exc()
+                self.is_playing_audio = False
             
             # Method 2: System audio player (fallback)
             if not playback_successful:
@@ -564,6 +575,22 @@ class AIServiceClient:
                 pass
                 
             return False
+    
+    def stop_audio(self):
+        """Stop any currently playing audio."""
+        debug_log("Stopping audio playback")
+        
+        # Stop all channels in pygame mixer
+        try:
+            if pygame.mixer.get_init():
+                pygame.mixer.stop()
+                self.is_playing_audio = False
+                debug_log("Audio playback stopped")
+                return True
+        except Exception as e:
+            debug_log(f"Failed to stop audio: {e}")
+            
+        return False
     
     def process_voice_input(self, npc_name):
         """Process voice input through the entire pipeline.

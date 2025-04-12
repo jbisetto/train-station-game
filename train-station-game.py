@@ -943,6 +943,17 @@ class DialogueSystem:
                     return True
                 return False
                 
+            if event.key == pygame.K_ESCAPE:
+                # If audio is playing, stop it
+                if hasattr(self.ai_client, 'is_playing_audio') and self.ai_client.is_playing_audio:
+                    print("Stopping audio playback")
+                    self.ai_client.stop_audio()
+                    return True
+                else:
+                    # Otherwise, deactivate the dialogue
+                    self.deactivate()
+                    return True
+                
             if event.key == pygame.K_RETURN:
                 # Process input and get response
                 if self.input_text.strip():
@@ -981,8 +992,6 @@ class DialogueSystem:
                     self.input_text = ""
             elif event.key == pygame.K_BACKSPACE:
                 self.input_text = self.input_text[:-1]
-            elif event.key == pygame.K_ESCAPE:
-                self.deactivate()
             elif event.key == pygame.K_v:
                 # Toggle voice input mode if ASR is available and PyAudio is available
                 if self.ai_client.asr_available and hasattr(self.ai_client, 'PYAUDIO_AVAILABLE') and self.ai_client.PYAUDIO_AVAILABLE:
