@@ -9,7 +9,7 @@ A simple Pygame-based interaction game where you play as a character with a talk
 In this game, you'll need to:
 1. Talk to the information booth attendant
 2. Purchase a ticket from the ticket booth
-3. Get your ticket checked by one of three train conductors
+3. Get your ticket checked by one of three station platform attendants
 4. You can also chat with your talking dog companion at any time!
 
 ## Installation & Setup
@@ -29,9 +29,9 @@ Place all PNG image files in an `assets` folder in the same directory as the gam
 - `dog.png` - 64x64 image for the dog
 - `info_attendant.png` - 64x64 image for information booth attendant
 - `ticket_attendant.png` - 64x64 image for ticket booth attendant  
-- `conductor1.png` - 64x64 image for first train conductor
-- `conductor2.png` - 64x64 image for second train conductor
-- `conductor3.png` - 64x64 image for third train conductor
+- `conductor1.png` - 64x64 image for first station platform attendant
+- `conductor2.png` - 64x64 image for second station platform attendant
+- `conductor3.png` - 64x64 image for third station platform attendant
 
 The directory structure should look like this:
 ```
@@ -77,7 +77,7 @@ python train_station_game.py
 - Distinct input and output text boxes during conversations
 - Dog companion that follows you around
 - Clear progression system
-- Multiple train conductors to choose from
+- Multiple station platform attendants to choose from
 
 ## Extending the Game
 

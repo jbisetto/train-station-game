@@ -26,7 +26,7 @@ STATE_DIALOGUE = 1
 # Progression states
 NEED_INFO = 0
 NEED_TICKET = 1
-NEED_CONDUCTOR = 2
+NEED_STATION_PLATFORM_ATTENDANT = 2
 GAME_COMPLETE = 3
 
 # Setup the screen
@@ -80,7 +80,7 @@ class Player(Character):
         super().__init__(x, y, image_path, "Player")
         self.interacted_with_info = False
         self.interacted_with_ticket = False
-        self.interacted_with_conductor = False
+        self.interacted_with_station_platform_attendant = False
         self.progression_state = NEED_INFO
     
     def move(self, dx, dy, obstacles):
@@ -94,7 +94,7 @@ class Player(Character):
         
         # Check X-axis collisions
         for obstacle in obstacles:
-            if "Conductor" in obstacle.name:
+            if "Station_Platform_Attendant" in obstacle.name:
                 smaller_rect = pygame.Rect(
                     obstacle.rect.x + 40,
                     obstacle.rect.y + 40,
@@ -123,7 +123,7 @@ class Player(Character):
         
         # Check Y-axis collisions
         for obstacle in obstacles:
-            if "Conductor" in obstacle.name:
+            if "Station_Platform_Attendant" in obstacle.name:
                 smaller_rect = pygame.Rect(
                     obstacle.rect.x + 40,
                     obstacle.rect.y + 40,
@@ -154,7 +154,7 @@ class Player(Character):
         
         # If we're still colliding with something, revert to original position
         for obstacle in obstacles:
-            if "Conductor" in obstacle.name:
+            if "Station_Platform_Attendant" in obstacle.name:
                 smaller_rect = pygame.Rect(
                     obstacle.rect.x + 40,
                     obstacle.rect.y + 40,
@@ -183,7 +183,7 @@ class Player(Character):
         # Different interaction distances based on NPC position
         if npc.name == "Ticket":
             max_distance = 100  # Keep ticket booth at 100
-        elif "Conductor" in npc.name:
+        elif "Station_Platform_Attendant" in npc.name:
             max_distance = 75   # Increased from 50 to 75
         else:
             max_distance = INTERACTION_DISTANCE
@@ -377,16 +377,16 @@ class DialogueSystem:
 
 def main():
     # Set up dialogue
-    dog_dialogue = {
+    hachiko_dialogue = {
         "default": [
             "Woof! I'm not an ordinary dog. I can talk!",
             "I think you should talk to the information booth first.",
-            "I smell train conductors nearby! They're responsible for checking tickets.",
+            "I smell train station platform attendants nearby! They're responsible for checking tickets.",
             "Trains are so exciting! I can't wait to go for a ride!"
         ],
         "hello": "Hey there! Nice to meet you!",
         "who are you": "I'm your loyal talking companion. Pretty special, right?",
-        "help": "You need to speak with the information booth attendant first, then get a ticket, and finally talk to a conductor."
+        "help": "You need to speak with the information booth attendant first, then get a ticket, and finally talk to a station platform attendant."
     }
     
     info_dialogue = {
@@ -401,19 +401,19 @@ def main():
         "train": "Our trains run every 30 minutes. You'll need a ticket to board."
     }
     
-    ticket_dialogue = {
+    sato_dialogue = {
         "default": [
             "Hello! Would you like to purchase a ticket?",
             "That will be $25. Here's your ticket.",
-            "Please show your ticket to one of our conductors to board the train.",
+            "Please show your ticket to one of our station platform attendants to board the train.",
             "Have a pleasant journey!"
         ],
         "yes": "Great! Here's your ticket for $25.",
         "how much": "A standard ticket costs $25.",
-        "conductor": "There are three conductors on duty today. Any one of them can help you board."
+        "station_platform_attendant": "There are three station platform attendants on duty today. Any one of them can help you board."
     }
     
-    conductor1_dialogue = {
+    tanaka_dialogue = {
         "default": [
             "Good day! May I see your ticket please?",
             "This ticket looks good. You're clear to board the train.",
@@ -425,7 +425,7 @@ def main():
         "where": "Your seat is in coach 3, seat 42B."
     }
     
-    conductor2_dialogue = {
+    nakamura_dialogue = {
         "default": [
             "Hello there! Ticket, please.",
             "Thank you, your ticket is valid.",
@@ -437,7 +437,7 @@ def main():
         "seat": "Your seat is in the third carriage."
     }
     
-    conductor3_dialogue = {
+    yamada_dialogue = {
         "default": [
             "Tickets, please! Can I see yours?",
             "All set! You're good to go.",
@@ -451,20 +451,20 @@ def main():
     
     # Create game objects - adjust positions based on map size
     player = Player(MAP_WIDTH // 2, MAP_HEIGHT // 2, "assets/player.png")  # Start player in center
-    dog = NPC(MAP_WIDTH // 2 + 50, MAP_HEIGHT // 2, "assets/dog.png", "Dog", dog_dialogue)  # Dog follows player
+    hachiko = NPC(MAP_WIDTH // 2 + 50, MAP_HEIGHT // 2, "assets/dog.png", "Dog", hachiko_dialogue)  # Dog follows player
     
     # Position NPCs according to the marked locations
     info_attendant = NPC(MAP_WIDTH // 4, MAP_HEIGHT // 4, "assets/info_attendant.png", "Information", info_dialogue)
-    ticket_attendant = NPC(2 * MAP_WIDTH // 3, MAP_HEIGHT // 3, "assets/ticket_attendant.png", "Ticket", ticket_dialogue)
+    sato = NPC(2 * MAP_WIDTH // 3, MAP_HEIGHT // 3, "assets/ticket_attendant.png", "Ticket", sato_dialogue)
     
-    # Position conductors - move 1 and 2 up towards track starts
-    conductor1 = NPC((MAP_WIDTH // 4) - 100, (2 * MAP_HEIGHT // 3) - 100, "assets/conductor1.png", "Conductor 1", conductor1_dialogue)  # Moved up
-    conductor2 = NPC(3 * MAP_WIDTH // 4, (2 * MAP_HEIGHT // 3) - 100, "assets/conductor2.png", "Conductor 2", conductor2_dialogue)  # Moved up
-    conductor3 = NPC((MAP_WIDTH // 2) - 100, (3 * MAP_HEIGHT // 4) - 20, "assets/conductor3.png", "Conductor 3", conductor3_dialogue)  # Keep in middle
+    # Position station platform attendants - move 1 and 2 up towards track starts
+    tanaka = NPC((MAP_WIDTH // 4) - 100, (2 * MAP_HEIGHT // 3) - 100, "assets/conductor1.png", "Station Platform Attendant 1", tanaka_dialogue)  # Moved up
+    nakamura = NPC(3 * MAP_WIDTH // 4, (2 * MAP_HEIGHT // 3) - 100, "assets/conductor2.png", "Station Platform Attendant 2", nakamura_dialogue)  # Moved up
+    yamada = NPC((MAP_WIDTH // 2) - 100, (3 * MAP_HEIGHT // 4) - 20, "assets/conductor3.png", "Station Platform Attendant 3", yamada_dialogue)  # Keep in middle
     
     # Group NPCs
-    npcs = [info_attendant, ticket_attendant, conductor1, conductor2, conductor3, dog]
-    obstacles = [info_attendant, ticket_attendant, conductor1, conductor2, conductor3]  # Dog is not an obstacle
+    npcs = [info_attendant, sato, tanaka, nakamura, yamada, hachiko]
+    obstacles = [info_attendant, sato, tanaka, nakamura, yamada]  # Dog is not an obstacle
     
     # Setup dialogue system
     dialogue_system = DialogueSystem()
@@ -492,15 +492,15 @@ def main():
                                 dialogue_system.activate(npc)
                                 game_state = STATE_DIALOGUE
                                 break
-                            elif npc.name == "Conductor 1" and event.key == pygame.K_e:
+                            elif npc.name == "Station Platform Attendant 1" and event.key == pygame.K_e:
                                 dialogue_system.activate(npc)
                                 game_state = STATE_DIALOGUE
                                 break
-                            elif npc.name == "Conductor 2" and event.key == pygame.K_r:
+                            elif npc.name == "Station Platform Attendant 2" and event.key == pygame.K_r:
                                 dialogue_system.activate(npc)
                                 game_state = STATE_DIALOGUE
                                 break
-                            elif npc.name == "Conductor 3" and event.key == pygame.K_t:
+                            elif npc.name == "Station Platform Attendant 3" and event.key == pygame.K_t:
                                 dialogue_system.activate(npc)
                                 game_state = STATE_DIALOGUE
                                 break
@@ -535,7 +535,7 @@ def main():
             player.move(dx, dy, obstacles)
             
             # Dog follows player at a distance
-            dog.follow(player.x + 50, player.y - 20, obstacles)  # Position dog to the right and slightly ahead
+            hachiko.follow(player.x + 50, player.y - 20, obstacles)  # Position dog to the right and slightly ahead
         
         # Update camera position
         camera_x, camera_y = update_camera(player.x, player.y)
@@ -557,11 +557,11 @@ def main():
                 if player.can_interact_with(npc, player.progression_state):
                     if npc.name == "Dog":
                         key_text = "D"
-                    elif npc.name == "Conductor 1":
+                    elif npc.name == "Station Platform Attendant 1":
                         key_text = "E"
-                    elif npc.name == "Conductor 2":
+                    elif npc.name == "Station Platform Attendant 2":
                         key_text = "R"
-                    elif npc.name == "Conductor 3":
+                    elif npc.name == "Station Platform Attendant 3":
                         key_text = "T"
                     else:
                         key_text = "E"
@@ -579,8 +579,8 @@ def main():
             progress_text = "Find information about taking a train"
         elif player.progression_state == NEED_TICKET:
             progress_text = "Purchase a ticket for the train"
-        elif player.progression_state == NEED_CONDUCTOR:
-            progress_text = "Find a conductor to board the train"
+        elif player.progression_state == NEED_STATION_PLATFORM_ATTENDANT:
+            progress_text = "Find a station platform attendant to board the train"
         elif player.progression_state == GAME_COMPLETE:
             progress_text = "Congratulations! You're ready to board the train!"
         
