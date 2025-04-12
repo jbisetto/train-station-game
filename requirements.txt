@@ -1,0 +1,5 @@
+pygame==2.5.2
+requests==2.31.0
+numpy==1.26.0
+pyaudio==0.2.13
+wave==0.0.2 
