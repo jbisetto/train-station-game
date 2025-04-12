@@ -1,8 +1,8 @@
-**🚧🚧Note: This repository is currently under construction.🚧🚧**
+# Train Station Game
 
-# Train Station Interaction Game
+A simple Pygame-based interaction game where you play as a character with a talking dog, navigating through a train station and interacting with various NPCs to board a train. This game features AI-powered dialogues with Japanese language support.
 
-A simple Pygame-based interaction game where you play as a character with a talking dog, navigating through a train station and interacting with various NPCs to board a train.
+This project was developed as the final immersion project for the [GenAI Cloud Project Bootcamp](https://genai.cloudprojectbootcamp.com/).
 
 ## Game Overview
 
@@ -15,84 +15,96 @@ In this game, you'll need to:
 ## Installation & Setup
 
 ### Requirements
-- Python 3.6 or higher
+- Python 3.9 or higher
 - Pygame library
+- PyAudio (optional, for voice input)
+- Pyperclip (for clipboard functionality)
 
 ### Installing Dependencies
 ```bash
-pip install pygame
+pip install pygame pyaudio pyperclip
 ```
 
-### Setting Up Assets
-Place all PNG image files in an `assets` folder in the same directory as the game script:
-- `player.png` - 64x64 image for the player character
-- `dog.png` - 64x64 image for the dog
-- `info_attendant.png` - 64x64 image for information booth attendant
-- `ticket_attendant.png` - 64x64 image for ticket booth attendant  
-- `conductor1.png` - 64x64 image for first station platform attendant
-- `conductor2.png` - 64x64 image for second station platform attendant
-- `conductor3.png` - 64x64 image for third station platform attendant
+## Required AI Services
 
-The directory structure should look like this:
-```
-train_station_game/
-│
-├── train_station_game.py
-│
-└── assets/
-    ├── player.png
-    ├── dog.png
-    ├── info_attendant.png
-    ├── ticket_attendant.png
-    ├── conductor1.png
-    ├── conductor2.png
-    └── conductor3.png
-```
+This game integrates with three external AI services that must be running for full functionality:
 
-## How to Play
+### 1. Automatic Speech Recognition (ASR)
+- Repository: [https://github.com/jbisetto/whisper-api](https://github.com/jbisetto/whisper-api)
+- Purpose: Converts player's voice input to text
+- Default URL: http://localhost:8000
 
-1. Run the game:
+### 2. NPC AI Dialogue Service
+- Repository: [https://github.com/jbisetto/npc-ai](https://github.com/jbisetto/npc-ai)
+- Purpose: Generates NPC responses based on player input
+- Default URL: http://localhost:8002
+
+### 3. Text-to-Speech (TTS)
+- Repository: [https://github.com/jbisetto/english-japanese-tts](https://github.com/jbisetto/english-japanese-tts)
+- Purpose: Converts NPC text responses to spoken audio
+- Default URL: http://localhost:8001
+
+Please refer to the respective repositories for setup instructions. Each service can be run locally using Docker or directly with Python.
+
+
+## Failed English-Japanese-Trancription AI Services
+During the course of the work on this game another service was used for the ASR component. However; as much work that went into it and as promising as we had hoped it would be it was not able to transcribe our mixed language input requirements properly. We attach it here just to show the work that went into it. 
+
+Thankfully, Whisper saved our butt on the day before submission. All hail open source.
+- Repository: [https://github.com/jbisetto/english-japanese-transcriber](https://github.com/jbisetto/english-japanese-transcriber)
+
+## Running the Game
+
+Once you have the required dependencies and AI services running:
+
 ```bash
-python train_station_game.py
+python train-station-game.py
 ```
 
-2. Controls:
-   - Arrow keys: Move your character
-   - E key: Interact with NPCs when close enough
-   - In dialogue:
-     - Type your responses
-     - ENTER key: Send your message
-     - ESC key: Exit dialogue
+## Game Controls
 
-3. Gameplay:
-   - Follow the objective shown at the top of the screen
-   - Chat with NPCs in the required order to progress
-   - You can have free-form conversations - try different questions!
-   - Talk to your dog companion anytime for hints
+### Movement
+- Arrow keys or WASD: Move your character
+- E/J/R/T: Interact with NPCs when close enough (specific key depends on the NPC)
+
+### In Dialogue
+- Type to compose messages
+- Enter: Send your message
+- V: Toggle voice input mode
+- Mouse wheel: Scroll through dialogue
+- Click and drag: Select text
+- Right-click or Ctrl+C: Copy selected text
+- Ctrl+V: Paste text into input field
+- Esc: Exit dialogue
+
+## Documentation
+
+For more detailed information about the game, please refer to:
+
+- `GAME_MANUAL.md`: Comprehensive user guide with detailed instructions
+- `DEVELOPMENT_NOTES.md`: Technical notes and insights about the implementation
 
 ## Game Features
 
 - Top-down movement in a 2D environment
-- Free-text dialogue input system
-- Distinct input and output text boxes during conversations
+- AI-powered dialogue system with natural language processing
+- Multilingual support with Japanese text and audio
+- Voice input and speech recognition
+- Text selection and clipboard integration
 - Dog companion that follows you around
-- Clear progression system
-- Multiple station platform attendants to choose from
-
-## Extending the Game
-
-Here are some ways you could enhance the game:
-- Add more areas or a larger map
-- Implement more complex dialogue branching
-- Add train departure animations
-- Include more NPCs with side quests
-- Add sound effects and background music
+- Progressive gameplay with multiple NPCs
 
 ## Troubleshooting
 
-If you encounter any issues:
-- Ensure all PNG files are in the correct directory
-- Verify that Pygame is properly installed
-- Check that all PNG files are 64x64 pixels
+If you encounter issues:
+
+1. Ensure all three AI services are running correctly
+2. Check that your microphone is properly configured for voice input
+3. Verify that you have all required assets in the correct location
+4. Make sure all Python dependencies are installed
+
+## License
+
+This project is provided as-is with no warranty. Feel free to modify and use for educational purposes.
 
 Enjoy your train adventure!
