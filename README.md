@@ -91,7 +91,9 @@ python train-station-game.py
 - Click and drag: Select text
 - Right-click or Ctrl+C: Copy selected text
 - Ctrl+V: Paste text into input field
-- Esc: Exit dialogue
+- Esc: Exit dialogue or stop audio playback
+
+> **Note:** Cut/paste functionality may have limitations when working with Japanese text. For inputting Japanese phrases, we recommend using the voice input feature (press V) for a better experience.
 
 ## Documentation
 
@@ -118,6 +120,7 @@ If you encounter issues:
 2. Check that your microphone is properly configured for voice input
 3. Verify that you have all required assets in the correct location
 4. Make sure all Python dependencies are installed
+5. If you have trouble entering Japanese text through the keyboard, try using the voice input feature (V key) instead, which works better for multilingual conversations
 
 ## License
 
