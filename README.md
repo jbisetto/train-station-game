@@ -2,7 +2,7 @@
 
 A simple Pygame-based interaction game where you play as a character with a talking dog, navigating through a train station and interacting with various NPCs to board a train. This game features AI-powered dialogues with Japanese language support.
 
-This project was developed as the final immersion project for the [GenAI Cloud Project Bootcamp](https://genai.cloudprojectbootcamp.com/).
+This project was developed as the final immersion project for the [GenAI Cloud Project Bootcamp](https://genai.cloudprojectbootcamp.com/). I want to thank bootcamp organizer and instructor Andrew Brown at ExamPro for putting together the bootcamp.
 
 ## Game Overview
 
